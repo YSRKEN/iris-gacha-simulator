@@ -1,40 +1,9 @@
 import * as React from 'react'
 import { Button, Form } from 'react-bootstrap';
-import PickupCountType from '../model/PickupCountType';
+import ConfigFormProps from '../models/ConfigFormProps';
+import PickupCountType from '../models/PickupCountType';
 
-type ConfigFormPropsBase = {
-  // ピックアップの人数のセット
-  setPickupCount: (v: PickupCountType) => void;
-  // 聖装の蒼片の初期枚数
-  firstPieceCount: string;
-  setFirstPieceCount: (v: string) => void;
-  // 蒼粒子の初期枚数
-  firstParticleCount: string;
-  setFirstParticleCount: (v: string) => void;
-  // 計算開始
-  startSimulation: () => void;
-}
-
-type OnePickupProps = {
-  // ピックアップの人数
-  pickupCount: '1';
-  // ピックアップの必要枚数
-  leastCardCountA: string;
-  setLeastCardCountA: (v: string) => void;
-}
-
-type TwoPickupProps = {
-  // ピックアップの人数
-  pickupCount: '2';
-  // ピックアップの必要枚数
-  leastCardCountB: [string, string];
-  setLeastCardCountB1: (v: string) => void;
-  setLeastCardCountB2: (v: string) => void;
-}
-
-type ConfigFormProps = ConfigFormPropsBase & (OnePickupProps | TwoPickupProps);
-
-const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
+export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
   <Form.Group>
     <Form.Label>ピックアップの枚数</Form.Label>
     <Form.Control as="select" value={props.pickupCount} onChange={(e) => {
@@ -76,5 +45,3 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
   </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
 </Form>;
-
-export default ConfigForm;
