@@ -1,19 +1,23 @@
 import * as React from 'react'
 import { Button, Form } from 'react-bootstrap';
 
-type ConfigFormProps1 = {
+type ConfigFormPropsBase = {
+  firstPieceCount: string;
+  firstParticleCount: string;
+  startSimulation: () => void;
+}
+
+type OnePickupProps = {
   pickupCount: '1';
   leastCardCount: string;
-  startSimulation: () => void;
 }
 
-type ConfigFormProps2 = {
+type TwoPickupProps = {
   pickupCount: '2';
   leastCardCount: [string, string];
-  startSimulation: () => void;
 }
 
-type ConfigFormProps = ConfigFormProps1 | ConfigFormProps2;
+type ConfigFormProps = ConfigFormPropsBase & (OnePickupProps | TwoPickupProps);
 
 const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
   <Form.Group>
@@ -35,6 +39,14 @@ const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
         <Form.Control value={props.leastCardCount[1]} />
       </Form.Group>
   }
+  <Form.Group>
+    <Form.Label>聖装の蒼片の初期枚数</Form.Label>
+    <Form.Control value={props.firstPieceCount} />
+  </Form.Group>
+  <Form.Group>
+    <Form.Label>蒼粒子の初期枚数</Form.Label>
+    <Form.Control value={props.firstParticleCount} />
+  </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
 </Form>;
 

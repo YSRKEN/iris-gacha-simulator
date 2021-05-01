@@ -17,7 +17,9 @@ const IndexPage: React.FC = () =>
         <Col>
           <ConfigForm
             pickupCount="2"
-            leastCardCount={["2", "2"]}
+            leastCardCount={["5", "2"]}
+            firstPieceCount="1000"
+            firstParticleCount="500"
             startSimulation={() => {
               window.alert('start!');
             }} />
