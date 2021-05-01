@@ -5,12 +5,14 @@ import { simulateTypeA, simulateTypeB } from '../services/simulation';
 import { tryParseInt } from '../services/utility';
 
 const ConfigForm: React.FC = () => {
-  const [pickupCount, setPickupCount] = React.useState<PickupCountType>('2');
-  const [leastCardCountA, setLeastCardCountA] = React.useState('2');
-  const [leastCardCountB, setLeastCardCountB] = React.useState<[string, string]>(['5', '2']);
-  const [firstPieceCount, setFirstPieceCount] = React.useState('1000');
-  const [firstParticleCount, setFirstParticleCount] = React.useState('500');
+  const [pickupCount, setPickupCount] = React.useState<PickupCountType>('1');
+  const [leastCardCountA, setLeastCardCountA] = React.useState('3');
+  const [leastCardCountB, setLeastCardCountB] = React.useState<[string, string]>(['3', '3']);
+  const [firstPieceCount, setFirstPieceCount] = React.useState('0');
+  const [firstParticleCount, setFirstParticleCount] = React.useState('0');
   const [reholdFlg, setReholdFlg] = React.useState(true);
+  const [allRFlg, setAllRFlg] = React.useState(true);
+  const [allSRFlg, setAllSRFlg] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const setLeastCardCountB1 = (v: string) => {
@@ -23,6 +25,14 @@ const ConfigForm: React.FC = () => {
 
   const flipReholdFlg = () => {
     setReholdFlg(!reholdFlg);
+  };
+
+  const flipAllRFlg = () => {
+    setAllRFlg(!allRFlg);
+  };
+
+  const flipAllSRFlg = () => {
+    setAllSRFlg(!allSRFlg);
   };
 
   const startSimulation = () => {
@@ -44,7 +54,7 @@ const ConfigForm: React.FC = () => {
           break;
         }
         setErrorMessage('');
-        simulateTypeA(leastCardCountAInt, firstPieceCountInt, firstParticleCountInt, reholdFlg);
+        simulateTypeA(leastCardCountAInt, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg);
         break;
       }
       case '2': {
@@ -69,7 +79,7 @@ const ConfigForm: React.FC = () => {
           break;
         }
         setErrorMessage('');
-        simulateTypeB(leastCardCountB1Int, leastCardCountB2Int, firstPieceCountInt, firstParticleCountInt, reholdFlg);
+        simulateTypeB(leastCardCountB1Int, leastCardCountB2Int, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg);
         break;
       }
     }
@@ -89,6 +99,10 @@ const ConfigForm: React.FC = () => {
     setFirstParticleCount={setFirstParticleCount}
     reholdFlg={reholdFlg}
     flipReholdFlg={flipReholdFlg}
+    allRFlg={allRFlg}
+    flipAllRFlg={flipAllRFlg}
+    allSRFlg={allSRFlg}
+    flipAllSRFlg={flipAllSRFlg}
     errorMessage={errorMessage}
     startSimulation={startSimulation} />;
 };

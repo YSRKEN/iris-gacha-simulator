@@ -48,6 +48,16 @@ export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
       props.flipReholdFlg();
     }} />
   </Form.Group>
+  <Form.Group>
+    <Form.Check type="checkbox" id="allRFlg" label="全てのRカードを引ききっているならチェック" checked={props.allRFlg} onChange={() => {
+      props.flipAllRFlg();
+    }} />
+  </Form.Group>
+  <Form.Group>
+    <Form.Check type="checkbox" id="allSRFlg" label="全てのSRカードを引ききっているならチェック" checked={props.allSRFlg} onChange={() => {
+      props.flipAllSRFlg();
+    }} />
+  </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
   {props.errorMessage !== ''
     ? <Alert className="my-3" variant="danger">

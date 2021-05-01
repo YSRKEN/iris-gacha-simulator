@@ -14,6 +14,14 @@ type ConfigFormPropsBase = {
   // ドロップする確率が、50％から100％に変化する)
   reholdFlg: boolean;
   flipReholdFlg: () => void;
+  // Rを全て引ききってるか？
+  // (1枚につき蒼片が5枚貰える)
+  allRFlg: boolean;
+  flipAllRFlg: () => void;
+  // SRを全て引ききってるか？
+  // (1枚につき蒼片が25枚貰える)
+  allSRFlg: boolean;
+  flipAllSRFlg: () => void;
   // エラーがある場合は通知する
   errorMessage: string;
   // 計算開始

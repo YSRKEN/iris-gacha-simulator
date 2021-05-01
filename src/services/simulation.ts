@@ -52,13 +52,17 @@ export const simulateTypeA = (
   leastCardCountA: number,
   firstPieceCount: number,
   firstParticleCount: number,
-  reholdFlg: boolean) => {
+  reholdFlg: boolean,
+  allRFlg: boolean,
+  allSRFlg: boolean) => {
   console.log('----------------------------------------');
   console.log(`ピックアップの人数：1人`);
   console.log(`ピックアップの必要枚数：${leastCardCountA}枚`);
   console.log(`聖装の蒼片の初期枚数：${firstPieceCount}枚`);
   console.log(`蒼粒子の初期枚数：${firstParticleCount}枚`);
   console.log(`イベントの種類：${reholdFlg ? '復刻イベント' : '新規イベント'}`);
+  console.log(`Rカード引き切り：${allRFlg ? 'あり' : 'なし'}`);
+  console.log(`SRカード引き切り：${allSRFlg ? 'あり' : 'なし'}`);
 
   // 終了条件を満たしていればtrue
   const isEnding = (cardCountA: number, pieceCount: number, particleCount: number) => {
@@ -127,6 +131,16 @@ export const simulateTypeA = (
         // 5の倍数の時はSSR確定が1枠ある
         const result = gachaSSR();
         switch (result) {
+          case 'R':
+            if (allRFlg) {
+              pieceCount += 5;
+            }
+            break;
+          case 'SR':
+            if (allSRFlg) {
+              pieceCount += 25;
+            }
+            break;
           case 'PU1':
             cardCountA += 1;
             break;
@@ -136,6 +150,16 @@ export const simulateTypeA = (
         for (let i = 0; i < 9; i += 1) {
           const result = gacha();
           switch (result) {
+            case 'R':
+              if (allRFlg) {
+                pieceCount += 5;
+              }
+              break;
+            case 'SR':
+              if (allSRFlg) {
+                pieceCount += 25;
+              }
+              break;
             case 'PU1':
               cardCountA += 1;
               break;
@@ -147,6 +171,16 @@ export const simulateTypeA = (
         for (let i = 0; i < 10; i += 1) {
           const result = gacha();
           switch (result) {
+            case 'R':
+              if (allRFlg) {
+                pieceCount += 5;
+              }
+              break;
+            case 'SR':
+              if (allSRFlg) {
+                pieceCount += 25;
+              }
+              break;
             case 'PU1':
               cardCountA += 1;
               break;
@@ -164,13 +198,17 @@ export const simulateTypeB = (
   leastCardCountB2: number,
   firstPieceCount: number,
   firstParticleCount: number,
-  reholdFlg: boolean) => {
+  reholdFlg: boolean,
+  allRFlg: boolean,
+  allSRFlg: boolean) => {
   console.log('----------------------------------------');
   console.log(`ピックアップの人数：2人`);
   console.log(`ピックアップの必要枚数：${leastCardCountB1}枚、${leastCardCountB2}枚`);
   console.log(`聖装の蒼片の初期枚数：${firstPieceCount}枚`);
   console.log(`蒼粒子の初期枚数：${firstParticleCount}枚`);
   console.log(`イベントの種類：${reholdFlg ? '復刻イベント' : '新規イベント'}`);
+  console.log(`Rカード引き切り：${allRFlg ? 'あり' : 'なし'}`);
+  console.log(`SRカード引き切り：${allSRFlg ? 'あり' : 'なし'}`);
 
   // 終了条件を満たしていればtrue
   const isEnding = (cardCountB1: number, cardCountB2: number, pieceCount: number, particleCount: number) => {
@@ -254,6 +292,16 @@ export const simulateTypeB = (
         // 5の倍数の時はSSR確定が1枠ある
         const result = gachaSSR();
         switch (result) {
+          case 'R':
+            if (allRFlg) {
+              pieceCount += 5;
+            }
+            break;
+          case 'SR':
+            if (allSRFlg) {
+              pieceCount += 25;
+            }
+            break;
           case 'PU1':
             cardCountB1 += 1;
             break;
@@ -266,6 +314,16 @@ export const simulateTypeB = (
         for (let i = 0; i < 9; i += 1) {
           const result = gacha();
           switch (result) {
+            case 'R':
+              if (allRFlg) {
+                pieceCount += 5;
+              }
+              break;
+            case 'SR':
+              if (allSRFlg) {
+                pieceCount += 25;
+              }
+              break;
             case 'PU1':
               cardCountB1 += 1;
               break;
@@ -280,6 +338,16 @@ export const simulateTypeB = (
         for (let i = 0; i < 10; i += 1) {
           const result = gacha();
           switch (result) {
+            case 'R':
+              if (allRFlg) {
+                pieceCount += 5;
+              }
+              break;
+            case 'SR':
+              if (allSRFlg) {
+                pieceCount += 25;
+              }
+              break;
             case 'PU1':
               cardCountB1 += 1;
               break;
