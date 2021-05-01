@@ -1,5 +1,52 @@
-const LOOP_COUNT = 10;   // シミュレーションにおける反復回数
+const LOOP_COUNT = 100000;   // シミュレーションにおける反復回数
 type REALITY = 'R' | 'SR' | 'SSR' | 'PU1' | 'PU2';  // レアリティ
+
+// 統計上の計算を行う
+const calcStatistics = (gachaCountList: number[]) => {
+  // 最大回数・最小回数
+  let log = '10連ガチャの\n';
+  const maxCount = Math.max(...gachaCountList);
+  log += `・最大回数→${maxCount}回\n`;
+  const minCount = Math.min(...gachaCountList);
+  log += `・最小回数→${minCount}回\n`;
+
+  // 50・95・99％ライン
+  const countCount: number[] = [];
+  for (let i = 0; i <= maxCount; i += 1) {
+    countCount.push(0);
+  }
+  for (let gachaCount of gachaCountList) {
+    countCount[gachaCount] += 1;
+  }
+  const countCount2: number[] = [];
+  for (let i = 0; i <= maxCount; i += 1) {
+    countCount2.push(0);
+  }
+  for (let i = 0; i <= maxCount; i += 1) {
+    countCount2[i] = countCount[i];
+    if (i > 0) {
+      countCount2[i] += countCount2[i - 1];
+    }
+  }
+  let flg50 = false;
+  let flg95 = false;
+  let flg99 = false;
+  for (let i = 0; i <= maxCount; i += 1) {
+    if (!flg50 && countCount2[i] > 50 * LOOP_COUNT / 100) {
+      log += `・50％ライン→${i}回\n`;
+      flg50 = true;
+    }
+    if (!flg95 && countCount2[i] > 95 * LOOP_COUNT / 100) {
+      log += `・95％ライン→${i}回\n`;
+      flg95 = true;
+    }
+    if (!flg99 && countCount2[i] > 99 * LOOP_COUNT / 100) {
+      log += `・99％ライン→${i}回\n`;
+      flg99 = true;
+    }
+  }
+  return log;
+};
 
 export const simulateTypeA = (
   leastCardCountA: number,
@@ -109,7 +156,7 @@ export const simulateTypeA = (
       }
     }
   }
-  console.log(gachaCountList);
+  window.alert(calcStatistics(gachaCountList));
 };
 
 export const simulateTypeB = (
@@ -245,5 +292,5 @@ export const simulateTypeB = (
       }
     }
   }
-  console.log(gachaCountList);
+  window.alert(calcStatistics(gachaCountList));
 };
