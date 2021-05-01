@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import ConfigFormProps from '../models/ConfigFormProps';
 import PickupCountType from '../models/PickupCountType';
 
@@ -49,4 +49,8 @@ export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
     }} />
   </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
+  {props.errorMessage !== ''
+    ? <Alert className="my-3" variant="danger">
+      {props.errorMessage}
+    </Alert> : <></>}
 </Form>;

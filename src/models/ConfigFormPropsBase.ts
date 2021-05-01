@@ -14,6 +14,8 @@ type ConfigFormPropsBase = {
   // ドロップする確率が、50％から100％に変化する)
   reholdFlg: boolean;
   flipReholdFlg: () => void;
+  // エラーがある場合は通知する
+  errorMessage: string;
   // 計算開始
   startSimulation: () => void;
 }

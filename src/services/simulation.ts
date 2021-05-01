@@ -3,6 +3,7 @@ export const simulateTypeA = (
   firstPieceCount: number,
   firstParticleCount: number,
   reholdFlg: boolean) => {
+  console.log('----------------------------------------');
   console.log(`ピックアップの人数：1人`);
   console.log(`ピックアップの必要枚数：${leastCardCountA}枚`);
   console.log(`聖装の蒼片の初期枚数：${firstPieceCount}枚`);
@@ -16,6 +17,7 @@ export const simulateTypeB = (
   firstPieceCount: number,
   firstParticleCount: number,
   reholdFlg: boolean) => {
+  console.log('----------------------------------------');
   console.log(`ピックアップの人数：2人`);
   console.log(`ピックアップの必要枚数：${leastCardCountB1}枚、${leastCardCountB2}枚`);
   console.log(`聖装の蒼片の初期枚数：${firstPieceCount}枚`);
