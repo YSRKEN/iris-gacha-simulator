@@ -43,5 +43,10 @@ export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
       props.setFirstParticleCount(e.currentTarget.value);
     }} />
   </Form.Group>
+  <Form.Group>
+    <Form.Check type="checkbox" id="reholdFlg" label="復刻イベントならチェック" checked={props.reholdFlg} onChange={() => {
+      props.flipReholdFlg();
+    }} />
+  </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
 </Form>;

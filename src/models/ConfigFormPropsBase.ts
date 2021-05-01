@@ -9,6 +9,11 @@ type ConfigFormPropsBase = {
   // 蒼粒子の初期枚数
   firstParticleCount: string;
   setFirstParticleCount: (v: string) => void;
+  // 復刻イベントか？
+  // (復刻イベントなら、10連が5×N回目でピックアップの
+  // ドロップする確率が、50％から100％に変化する)
+  reholdFlg: boolean;
+  flipReholdFlg: () => void;
   // 計算開始
   startSimulation: () => void;
 }
