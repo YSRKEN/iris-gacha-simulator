@@ -5,7 +5,7 @@ import PickupCountType from '../models/PickupCountType';
 
 export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
   <Form.Group>
-    <Form.Label>ピックアップの枚数</Form.Label>
+    <Form.Label>ピックアップの人数</Form.Label>
     <Form.Control as="select" value={props.pickupCount} onChange={(e) => {
       props.setPickupCount(e.currentTarget.value as PickupCountType);
     }}>

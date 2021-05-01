@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ConfigForm as Component } from '../components/ConfigForm';
 import PickupCountType from '../models/PickupCountType';
+import { simulateTypeA, simulateTypeB } from '../services/simulation';
 
 const ConfigForm: React.FC = () => {
   const [pickupCount, setPickupCount] = React.useState<PickupCountType>('2');
@@ -23,7 +24,14 @@ const ConfigForm: React.FC = () => {
   };
 
   const startSimulation = () => {
-    window.alert('start!');
+    switch (pickupCount) {
+      case '1':
+        simulateTypeA(2, 1000, 500, true);
+        break;
+      case '2':
+        simulateTypeB(5, 2, 1000, 500, true);
+        break;
+    }
   };
 
   return <Component
