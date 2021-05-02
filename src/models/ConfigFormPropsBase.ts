@@ -22,6 +22,10 @@ type ConfigFormPropsBase = {
   // (1枚につき蒼片が25枚貰える)
   allSRFlg: boolean;
   flipAllSRFlg: () => void;
+  // 異界のゲストの新規ガチャの場合はチェック
+  // (イベントクリアで交換券が1枚貰える)
+  newCollaboFlg: boolean;
+  flipNewCollaboFlg: () => void;
   // エラーがある場合は通知する
   errorMessage: string;
   // 計算開始

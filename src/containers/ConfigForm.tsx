@@ -13,6 +13,7 @@ const ConfigForm: React.FC = () => {
   const [reholdFlg, setReholdFlg] = React.useState(true);
   const [allRFlg, setAllRFlg] = React.useState(true);
   const [allSRFlg, setAllSRFlg] = React.useState(false);
+  const [newCollaboFlg, setNewCollaboFlg] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   const setLeastCardCountB1 = (v: string) => {
@@ -35,6 +36,10 @@ const ConfigForm: React.FC = () => {
     setAllSRFlg(!allSRFlg);
   };
 
+  const flipNewCollaboFlg = () => {
+    setNewCollaboFlg(!newCollaboFlg);
+  };
+
   const startSimulation = () => {
     switch (pickupCount) {
       case '1': {
@@ -54,7 +59,7 @@ const ConfigForm: React.FC = () => {
           break;
         }
         setErrorMessage('');
-        simulateTypeA(leastCardCountAInt, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg);
+        simulateTypeA(leastCardCountAInt, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg, newCollaboFlg && !reholdFlg);
         break;
       }
       case '2': {
@@ -79,7 +84,7 @@ const ConfigForm: React.FC = () => {
           break;
         }
         setErrorMessage('');
-        simulateTypeB(leastCardCountB1Int, leastCardCountB2Int, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg);
+        simulateTypeB(leastCardCountB1Int, leastCardCountB2Int, firstPieceCountInt, firstParticleCountInt, reholdFlg, allRFlg, allSRFlg, newCollaboFlg && !reholdFlg);
         break;
       }
     }
@@ -103,6 +108,8 @@ const ConfigForm: React.FC = () => {
     flipAllRFlg={flipAllRFlg}
     allSRFlg={allSRFlg}
     flipAllSRFlg={flipAllSRFlg}
+    newCollaboFlg={newCollaboFlg}
+    flipNewCollaboFlg={flipNewCollaboFlg}
     errorMessage={errorMessage}
     startSimulation={startSimulation} />;
 };

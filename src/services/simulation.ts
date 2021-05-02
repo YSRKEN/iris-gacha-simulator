@@ -1,5 +1,6 @@
 const LOOP_COUNT = 100000;   // シミュレーションにおける反復回数
 type REALITY = 'R' | 'SR' | 'SSR' | 'PU1' | 'PU2';  // レアリティ
+const DEBUG_FLG = false;
 
 // 統計上の計算を行う
 const calcStatistics = (gachaCountList: number[]) => {
@@ -54,7 +55,8 @@ export const simulateTypeA = (
   firstParticleCount: number,
   reholdFlg: boolean,
   allRFlg: boolean,
-  allSRFlg: boolean) => {
+  allSRFlg: boolean,
+  newCollaboFlg: boolean) => {
   console.log('----------------------------------------');
   console.log(`ピックアップの人数：1人`);
   console.log(`ピックアップの必要枚数：${leastCardCountA}枚`);
@@ -63,15 +65,16 @@ export const simulateTypeA = (
   console.log(`イベントの種類：${reholdFlg ? '復刻イベント' : '新規イベント'}`);
   console.log(`Rカード引き切り：${allRFlg ? 'あり' : 'なし'}`);
   console.log(`SRカード引き切り：${allSRFlg ? 'あり' : 'なし'}`);
+  console.log(`異界のゲストの引換券：${newCollaboFlg ? 'あり' : 'なし'}`);
 
   // 終了条件を満たしていればtrue
-  const isEnding = (cardCountA: number, pieceCount: number, particleCount: number) => {
+  const isEnding = (cardCountA: number, pieceCount: number, particleCount: number, newCollaboFlg: boolean) => {
     //1枚目を蒼片で交換せざるを得ない場合、足りてなければ、終了条件を満たしていないことになる
     let firstCardGettingCount = 0;
     if (leastCardCountA > 0 && cardCountA === 0) {
       firstCardGettingCount += 1;
     }
-    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount) {
+    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount && !newCollaboFlg) {
       return false;
     }
 
@@ -80,7 +83,7 @@ export const simulateTypeA = (
     if (leastCardCountA > 0 && cardCountA < leastCardCountA) {
       cardGettingCount += leastCardCountA - cardCountA;
     }
-    return cardGettingCount * 2000 <= pieceCount + particleCount;
+    return cardGettingCount * 2000 <= pieceCount + particleCount + (newCollaboFlg ? 2000 : 0);
   }
 
   // ガチャ1回分の試行
@@ -115,14 +118,18 @@ export const simulateTypeA = (
   };
 
   const gachaCountList: number[] = [];
-  for (let i = 0; i < LOOP_COUNT; i += 1) {
+  const loopCount = DEBUG_FLG ? 1 : LOOP_COUNT;
+  for (let i = 0; i < loopCount; i += 1) {
     // 初期状態を生成
     let cardCountA = 0;
     let pieceCount = firstPieceCount;
     let particleCount = firstParticleCount;
     for (let gachaCount = 0; ; gachaCount += 1) {
+      if (DEBUG_FLG) {
+        console.log(`10連 ${gachaCount} 回目：${cardCountA}枚 ${pieceCount}/${particleCount}個`);
+      }
       // 終了条件を確認する
-      if (isEnding(cardCountA, pieceCount, particleCount)) {
+      if (isEnding(cardCountA, pieceCount, particleCount, newCollaboFlg)) {
         gachaCountList.push(gachaCount);
         break;
       }
@@ -200,7 +207,8 @@ export const simulateTypeB = (
   firstParticleCount: number,
   reholdFlg: boolean,
   allRFlg: boolean,
-  allSRFlg: boolean) => {
+  allSRFlg: boolean,
+  newCollaboFlg: boolean) => {
   console.log('----------------------------------------');
   console.log(`ピックアップの人数：2人`);
   console.log(`ピックアップの必要枚数：${leastCardCountB1}枚、${leastCardCountB2}枚`);
@@ -209,9 +217,10 @@ export const simulateTypeB = (
   console.log(`イベントの種類：${reholdFlg ? '復刻イベント' : '新規イベント'}`);
   console.log(`Rカード引き切り：${allRFlg ? 'あり' : 'なし'}`);
   console.log(`SRカード引き切り：${allSRFlg ? 'あり' : 'なし'}`);
+  console.log(`異界のゲストの引換券：${newCollaboFlg ? 'あり' : 'なし'}`);
 
   // 終了条件を満たしていればtrue
-  const isEnding = (cardCountB1: number, cardCountB2: number, pieceCount: number, particleCount: number) => {
+  const isEnding = (cardCountB1: number, cardCountB2: number, pieceCount: number, particleCount: number, newCollaboFlg: boolean) => {
     //1枚目を蒼片で交換せざるを得ない場合、足りてなければ、終了条件を満たしていないことになる
     let firstCardGettingCount = 0;
     if (leastCardCountB1 > 0 && cardCountB1 === 0) {
@@ -219,7 +228,7 @@ export const simulateTypeB = (
     } else if (leastCardCountB2 > 0 && cardCountB2 === 0) {
       firstCardGettingCount += 1;
     }
-    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount) {
+    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount && !newCollaboFlg) {
       return false;
     }
 
@@ -231,7 +240,7 @@ export const simulateTypeB = (
     if (leastCardCountB2 > 0 && cardCountB2 < leastCardCountB2) {
       cardGettingCount += leastCardCountB2 - cardCountB2;
     }
-    return cardGettingCount * 2000 <= pieceCount + particleCount;
+    return cardGettingCount * 2000 <= pieceCount + particleCount + (newCollaboFlg ? 2000 : 0);
   }
 
   // ガチャ1回分の試行
@@ -275,15 +284,19 @@ export const simulateTypeB = (
   };
 
   const gachaCountList: number[] = [];
-  for (let i = 0; i < LOOP_COUNT; i += 1) {
+  const loopCount = DEBUG_FLG ? 1 : LOOP_COUNT;
+  for (let i = 0; i < loopCount; i += 1) {
     // 初期状態を生成
     let cardCountB1 = 0;
     let cardCountB2 = 0;
     let pieceCount = firstPieceCount;
     let particleCount = firstParticleCount;
     for (let gachaCount = 0; ; gachaCount += 1) {
+      if (DEBUG_FLG) {
+        console.log(`10連 ${gachaCount} 回目：${cardCountB1}/${cardCountB2}枚 ${pieceCount}/${particleCount}個`);
+      }
       // 終了条件を確認する
-      if (isEnding(cardCountB1, cardCountB2, pieceCount, particleCount)) {
+      if (isEnding(cardCountB1, cardCountB2, pieceCount, particleCount, newCollaboFlg)) {
         gachaCountList.push(gachaCount);
         break;
       }

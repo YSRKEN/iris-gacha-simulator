@@ -58,6 +58,13 @@ export const ConfigForm: React.FC<ConfigFormProps> = (props) => <Form>
       props.flipAllSRFlg();
     }} />
   </Form.Group>
+  <Form.Group>
+    <Form.Check type="checkbox" id="newCollaboFlg" label="異界のゲストの引換券がある場合はチェック" disabled={props.reholdFlg}
+      checked={props.newCollaboFlg} onChange={() => {
+        props.flipNewCollaboFlg();
+      }} />
+    <Form.Label><strong>※復刻イベントの場合は異界のゲストに対する引換券が存在しません</strong></Form.Label>
+  </Form.Group>
   <Button onClick={props.startSimulation}>計算開始</Button>
   {props.errorMessage !== ''
     ? <Alert className="my-3" variant="danger">
