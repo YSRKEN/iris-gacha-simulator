@@ -74,7 +74,7 @@ export const simulateTypeA = (
     if (leastCardCountA > 0 && cardCountA === 0) {
       firstCardGettingCount += 1;
     }
-    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount && !newCollaboFlg) {
+    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 > pieceCount && !newCollaboFlg) {
       return false;
     }
 
@@ -228,7 +228,7 @@ export const simulateTypeB = (
     } else if (leastCardCountB2 > 0 && cardCountB2 === 0) {
       firstCardGettingCount += 1;
     }
-    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 < pieceCount && !newCollaboFlg) {
+    if (firstCardGettingCount > 0 && firstCardGettingCount * 2000 > pieceCount && !newCollaboFlg) {
       return false;
     }
 
